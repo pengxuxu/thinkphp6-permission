@@ -20,6 +20,9 @@ composer require pengxuxu/thinkphp6-permission
 * * [规则与角色](#解除规则与角色)
 * * [用户与角色](#解除用户与角色)
 * [权限判断](#权限判断)
+* * [判断用户是否有权限](#判断用户是否有权限)
+* * [用户模型](#用户模型)
+* * [注入用户信息](#注入用户信息)
 * [路由守护](#路由守护)
 * [数据表](#数据表)
 
@@ -116,7 +119,7 @@ $role->removeUser($user);
 ```
 
 ### 权限判断
-#### 手动
+#### 判断用户是否有权限
 ```php
 use pengxuxu\Permission\Model\User;
 
@@ -129,6 +132,7 @@ if ($user->can('home')) {
 ```
 
 #### 用户模型
+用户模型使用 `\pengxuxu\Permission\Contract\UserContract` 接口。
 ```php
 <?php
 
@@ -146,7 +150,7 @@ class User implements UserContract
 
 
 #### 注入用户信息
-新建Auth中间件,在中间件里手动注入到`$request->user`上，并且使用 `\pengxuxu\Permission\Contract\UserContract` 接口。 [Demo](#用户模型)
+新建Auth中间件,在中间件里手动注入用户信息到`$request->user`上。
 ```php
 <?php
 
