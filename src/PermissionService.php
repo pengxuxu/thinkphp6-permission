@@ -9,9 +9,7 @@ class PermissionService extends \think\Service
 {
     public function register()
     {
-        $this->app->bind('auth', Permission::class);
-        $this->app->bind('auth.permission', Permission::class);
-        $this->app->bind('auth.role', Role::class);
+        // TODO
     }
 
     public function boot()
