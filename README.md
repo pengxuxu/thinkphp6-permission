@@ -192,15 +192,17 @@ return [
 
 ```
 ####路由使用中间件
+- 规则中间件
 `/index` 路由添加一条权限控制 访问者有 `home`权限才能允许访问
 
+- 角色中间件
 ```php
 Route::post('/index', 'index/index')->middleware('permission', 'home');
 ```
 
-`/home` 路由添加一条权限控制 访问者是 `home`角色才能允许访问
+`/home` 路由添加一条权限控制 访问者是 `writer`角色才能允许访问
 ```php
-Route::post('/home', 'home/index')->middleware('role', 'home');
+Route::post('/home', 'home/index')->middleware('role', 'writer');
 ```
 
 ### 数据表
@@ -250,31 +252,4 @@ CREATE TABLE `user_role_access` (
   `role_id` int(11) NOT NULL COMMENT '角色主键',
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```
-
-### 中间件
-默认自带以下中间件
-- 规则中间件
-- 角色中间件
-
-
-规则中间件
-```php
-#route/app.php
-
-# 拥有 edit 规则的用户 可以访问此路由
-Route::rule('/testPermission', function(){
-  return 'edit';
-}, 'GET')->allowCrossDomain()->middleware('auth.permission', 'edit');
-```
-
-角色中间件
-```php
-#route/app.php
-
-# 拥有 editer 角色的用户 可以访问此路由
-Route::rule('/testRole', function(){
-  return 'editer';
-}, 'GET')->allowCrossDomain()->middleware('auth.role', 'editer');
-
 ```
