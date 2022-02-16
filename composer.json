@@ -1,0 +1,28 @@
+{
+    "name": "pengxuxu/thinkphp6-permission",
+    "description": "thinkphp",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "pengxuxu\\permission\\": "src"
+        }
+    },
+    "extra": {
+        "think": {
+            "services": [
+                "pengxuxu\\Permission\\PermissionService"
+            ],
+            "config": {
+                "permission": "config/permission.php"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "topthink/framework": "^6.0.0"
+    }
+}
