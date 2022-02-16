@@ -21,7 +21,7 @@ interface UserContract
      *
      * @return bool
      */
-    public function can($permission);
+    public function can($permission): bool;
 
     /**
      * 是否绑定某个角色.
@@ -30,7 +30,7 @@ interface UserContract
      *
      * @return bool
      */
-    public function hasRole(string $role);
+    public function hasRole(string $role): bool;
 
     /**
      * 将用户分配到指定角色.
@@ -71,12 +71,12 @@ interface UserContract
      *
      * @return bool
      */
-    public function isSuper();
+    public function isSuper(): bool;
 
     /**
      * 获取用户权限（所属分组）.
      *
-     * @return void
+     * @return Collection
      */
     public function getAllPermissions(): Collection;
 }
