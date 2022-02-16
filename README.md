@@ -127,14 +127,6 @@ if ($user->can('home')) {
 }
 ```
 
-#### 路由守护
-用户信息，请手动注入到`$request->user`上，并且使用 `\pengxuxu\Permission\Contract\UserContract` 接口。 [Demo](#中间件注入用户)
-`/home` 路由添加一条权限控制 访问者有 `home`权限才能允许访问
-```php
-Route::post('/home', 'home/index')->middleware('auth', 'home');
-```
-
-### 中间件注入用户
 #### 用户模型
 ```php
 <?php
@@ -148,9 +140,12 @@ class User implements UserContract
 {
     use \pengxuxu\Permission\Traits\User;
 }
+
 ```
 
+
 #### 注入用户信息
+新建Auth中间件,在中间件里手动注入到`$request->user`上，并且使用 `\pengxuxu\Permission\Contract\UserContract` 接口。 [Demo](#用户模型)
 ```php
 <?php
 
@@ -171,6 +166,41 @@ class Auth
     }
 }
 
+```
+
+### 路由守护
+#### 在中间件配置里注册中间件，并定义中间件别名
+```php
+<?php
+// 中间件配置
+return [
+    // 别名或分组
+    'alias' => [
+        'auth' => \app\middleware\Auth::class,
+        'permission' => \pengxuxu\Permission\Middleware\Permission::class,
+        'role' => \pengxuxu\Permission\Middleware\Role::class
+    ],
+
+    // 优先级设置，此数组中的中间件会按照数组中的顺序优先执行
+    'priority' => [
+        \think\middleware\SessionInit::class,
+        \app\middleware\Auth::class,
+        \pengxuxu\Permission\Middleware\Permission::class,
+        \pengxuxu\Permission\Middleware\Role::class
+    ],
+];
+
+```
+####路由使用中间件
+`/index` 路由添加一条权限控制 访问者有 `home`权限才能允许访问
+
+```php
+Route::post('/index', 'index/index')->middleware('permission', 'home');
+```
+
+`/home` 路由添加一条权限控制 访问者是 `home`角色才能允许访问
+```php
+Route::post('/home', 'home/index')->middleware('role', 'home');
 ```
 
 ### 数据表

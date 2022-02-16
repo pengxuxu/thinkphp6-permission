@@ -18,7 +18,7 @@ class Permission implements PermissionMiddlewareContract
         if ($request->isOptions()) {
             return $next($request);
         }
-        
+
         if (!$request->user) {
             return $this->handleNotLoggedIn($request);
         }
@@ -33,7 +33,7 @@ class Permission implements PermissionMiddlewareContract
     /**
      * 检查是否有权限.
      *
-     * @param Request      $request
+     * @param Request $request
      * @param UserContract $user
      * @param [type]       $permission
      *
