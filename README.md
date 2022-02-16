@@ -150,7 +150,7 @@ class User implements UserContract
 
 
 #### 注入用户信息
-新建Auth中间件,在中间件里手动注入用户信息到`$request->user`上。
+新建Auth中间件，并在中间件里注入用户信息到`$request->user`上。
 ```php
 <?php
 
@@ -199,14 +199,14 @@ return [
 #### 路由使用中间件
 - 规则中间件
 
-`/index`路由添加一条权限控制，访问者有`home`权限才能允许访问
+`/index`路由添加一条规则权限控制，访问者有`home`权限才能允许访问
 ```php
 Route::post('/index', 'index/index')->middleware('permission', 'home');
 ```
 
 - 角色中间件
 
-`/home`路由添加一条权限控制，访问者是`writer`角色才能允许访问
+`/home`路由添加一条角色权限控制，访问者是`writer`角色才能允许访问
 ```php
 Route::post('/home', 'home/index')->middleware('role', 'writer');
 ```
